@@ -13,7 +13,7 @@
       <div class="modal-body">
         <div class="content">
           <h1>{{ msg }}</h1>
-          <form @submit="submit">
+          <form @submit.prevent="submit">
             <div class="form-group">
               <label class="form-label" for="input-example-1">Username</label>
               <input
@@ -21,7 +21,7 @@
                 type="text"
                 placeholder="Username"
                 maxlength="30"
-                v-model="item.username"
+                v-model="Item.username"
               />
             </div>
             <div class="form-group">
@@ -30,37 +30,41 @@
                 class="form-input"
                 type="text"
                 placeholder="Name"
-                v-model="item.name"
+                v-model="Item.name"
               />
             </div>
             <div class="form-group">
-              <label class="form-label" for="input-example-3">Description </label>
+              <label class="form-label" for="input-example-3"
+                >Description
+              </label>
               <textarea
                 class="form-input"
                 placeholder="Textarea"
                 rows="3"
                 maxlength="255"
-                v-model="item.description"
+                v-model="Item.description"
               />
             </div>
             <div class="form-group">
               <label class="form-label" for="input-example-1">Groups</label>
-              <select class="form-select" v-model="item.groups">
+              <select class="form-select" v-model="Item.groups">
                 <option value="1">Adm</option>
                 <option value="15">Comercial</option>
                 <option value="30">RH</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" for="input-example-1">Expiration </label>
+              <label class="form-label" for="input-example-1"
+                >Expiration
+              </label>
               <input
                 class="form-input"
                 type="number"
                 placeholder="Expiration"
-                v-model="item.expiration"
+                v-model="Item.expiration"
               />
             </div>
-            <button class="btn">Salvar</button>
+            <button @click="update(Item.id)" class="btn">Salvar</button>
           </form>
         </div>
       </div>
@@ -69,18 +73,39 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "Modal",
   methods: {
     close() {
       this.$store.dispatch("ModalVisible", false);
     },
-    update() {
-      console.log("update");
+    update(id) {
+      axios
+        .put(`http://localhost:5000/api/update/${id}`, {
+          username: this.Item.username,
+          name: this.Item.name,
+          description: this.Item.description,
+          groups: this.Item.groups,
+          expiration: this.Item.expiration,
+          expirated_at: (Date.now() + (this.Item.expiration * 86400000)) / 1000,
+          created_at: Date.now() / 1000,
+          updated_at: Date.now() / 1000,
+        })
+        .then(() => {})
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   props: {
     item: Object,
+  },
+
+  computed: {
+    Item() {
+      return this.$store.state.info;
+    },
   },
 };
 </script>

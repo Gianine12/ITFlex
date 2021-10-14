@@ -8,11 +8,15 @@ export default new Vuex.Store({
   state: {
     lista: [],
     isModalVisible: false,
+    info: {},
   },
   mutations: {
     ModalVisible(state, payload) {
       state.isModalVisible = payload;
     },
+    setInfo(state, payload) {
+      state.info = payload;
+    }
   },
   actions: {
     ModalVisible({ commit }, value) {
@@ -20,6 +24,9 @@ export default new Vuex.Store({
         commit("ModalVisible", value);
       });
     },
+    setInfo({ commit }, value) {
+      commit("setInfo", value);
+    }
   },
   modules: {},
 });

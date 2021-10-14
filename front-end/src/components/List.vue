@@ -23,11 +23,11 @@
             <button @click="deleteList(item.id)" class="btn btn-action">
               <i class="icon icon-delete" />
             </button>
-            <button @click="edit()" class="btn btn-action">
+            <button @click="edit(item)" class="btn btn-action">
               <i class="icon icon-edit" />
             </button>
           </td>
-          <Modal v-if="visible" v-bind:item="item" />
+          <Modal v-if="visible" />
         </tr>
       </tbody>
     </table>
@@ -68,8 +68,9 @@ export default {
         });
     },
 
-    edit() {
+    edit(item) {
       this.$store.dispatch("ModalVisible", true);
+      this.$store.dispatch("setInfo", item);
     },
 
     deleteList(id) {

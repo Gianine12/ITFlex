@@ -41,6 +41,10 @@ def update_cert(id,req):
 
     for key, value in req.items():
         setattr(dados,key,value)
+
+    dados.expirated_at = datetime.fromtimestamp(dados.expirated_at) 
+    dados.created_at = datetime.fromtimestamp(dados.created_at)
+    dados.updated_at = datetime.fromtimestamp(dados.updated_at)
     
     session.commit()
 
