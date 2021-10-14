@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="principal">
     <h1>Cadastrados</h1>
-    <table class="table table-striped table-hover table-scroll">
+    <table class="table-hover table-scroll tb-header">
       <thead>
         <tr>
           <th>Name</th>
@@ -90,8 +90,40 @@ export default {
 };
 </script>
 <style scoped>
+.principal {
+  text-align: center;
+}
 table {
-  min-width: 1000px;
+  border: 1px solid #DFE3E6;
+  border-collapse: collapse;
+  width: 96%;
+  margin: auto;
+  /* padding: 8px; */
+}
+
+.tb-header {
+  background: #DFE3E6;
+}
+.tb-header:hover {
+  background: #DFE3E6;
+}
+
+th,
+td {
+  height: 32px;
+  padding: 8px;
+}
+
+tr {
+  border: 1px solid #DFE3E6;
+}
+
+tr:hover {
+  background:#F9FAFB;
+}
+
+thead {
+  background: white;
 }
 img {
   width: 30px;

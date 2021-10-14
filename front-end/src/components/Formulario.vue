@@ -101,6 +101,8 @@ form {
   border: 1px solid lavender;
   padding: 10px;
   border-radius: 15px;
+  background: #fff;
+  margin: auto;
 }
 
 h1 {
